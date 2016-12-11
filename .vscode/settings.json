@@ -1,0 +1,13 @@
+// Placez vos paramètres dans ce fichier pour remplacer les paramètres par défaut et les paramètres utilisateur.
+{
+    "typescript.tsdk": "./node_modules/typescript/lib",
+    
+    // Is git enabled
+    "git.enabled": false,
+
+    // Path to the git executable
+    "git.path": null,
+
+    // Whether auto fetching is enabled.
+    "git.autofetch": false
+}

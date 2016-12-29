@@ -2,10 +2,13 @@ import * as path from 'path';
 import * as express from 'express';
 import * as logger from 'morgan';
 import * as bodyParser from 'body-parser';
-import HeroRouter from './routes/HeroRouter';
+import DrinksRouter from './routes/DrinksRouter';
 
 // Creates and configures an ExpressJS web server.
 class App {
+
+  private defaultRoute: string = '/'; 
+  private drinksApiRoute: string = '/api/drinks';
 
   // ref to Express instance
   public express: express.Application;
@@ -22,6 +25,11 @@ class App {
     this.express.use(logger('dev'));
     this.express.use(bodyParser.json());
     this.express.use(bodyParser.urlencoded({ extended: false }));
+    this.express.use(function(req, res, next) {
+      res.header("Access-Control-Allow-Origin", "*");
+      res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+      next();
+    });
   }
 
   // Configure API endpoints.
@@ -31,13 +39,13 @@ class App {
      * API endpoints */
     let router = express.Router();
     // placeholder route handler
-    router.get('/', (req, res, next) => {
+    router.get(this.defaultRoute, (req, res, next) => {
       res.json({
-        message: 'Hello World!'
+        message: `Api is on ${this.drinksApiRoute}`
       });
     });
-    this.express.use('/', router);
-    this.express.use('/api/v1/heroes', HeroRouter);
+    this.express.use(this.defaultRoute, router);
+    this.express.use(this.drinksApiRoute, DrinksRouter);
   }
 
 }

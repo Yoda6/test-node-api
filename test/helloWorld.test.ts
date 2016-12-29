@@ -19,7 +19,7 @@ describe('baseRoute', () => {
   it('should have a message prop', () => {
     chai.request(app).get('/')
     .then(res => {
-      expect(res.body.message).to.eql('Hello World!');
+      expect(res.body.message).to.eql('Api is on /api/drinks');
     });
   });
 
